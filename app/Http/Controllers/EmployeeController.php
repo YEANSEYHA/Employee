@@ -23,7 +23,11 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        $this->validate($request, [
+            'name' => 'required',
+            'phone' => 'required',
+        ]);
         return Employee::create($request->all());
     }
 
@@ -35,7 +39,7 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        //
+        return Employee::find($id);
     }
 
     /**
@@ -47,7 +51,9 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $employee = Employee::find($id);
+        $employee->update($request->all());
+        return $employee;
     }
 
     /**
@@ -58,6 +64,6 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Employee::destroy($id);
     }
 }
