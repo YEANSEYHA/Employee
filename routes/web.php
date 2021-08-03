@@ -1,8 +1,12 @@
 <?php
 
+use App\Models\Employee;
 // New adding line
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EmployeeController;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +23,6 @@ use Illuminate\Support\Facades\Route;
     return $router->app->version();
 });
  */
-Route::get('/employees',function(){
-    return 'Employess API';
-});
+Route::get('/employees','EmployeeController@index');
+Route::post('/employees','EmployeeController@store');
+
