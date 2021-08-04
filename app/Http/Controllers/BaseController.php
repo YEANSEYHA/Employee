@@ -16,7 +16,6 @@ class BaseController extends Controller
         $this->service = $employeeService;
     }
 
-    
     public function index()
     {
         //return Employee::all();
