@@ -23,6 +23,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
     return $router->app->version();
 });
  */
+Route::get('/',function(){
+    return 'API Employee';
+});
+
 Route::get('/employees','EmployeeController@index');
 Route::post('/employees','EmployeeController@store');
 Route::get('/employees/{id}','EmployeeController@show');
