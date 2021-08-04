@@ -22,14 +22,14 @@ class BaseController extends Controller
         return $this->service->index();
     }
 
-    
     public function store(Request $request)
     {   
         $this->validate($request, [
             'name' => 'required',
             'phone' => 'required',
         ]);
-        return Employee::create($request->all());
+        //return Employee::create($request->all());
+        return $this->service->store($request);
     }
     
     public function show($id)
@@ -38,7 +38,6 @@ class BaseController extends Controller
         return $this->service->show($id);
     }
 
-    
     public function update(Request $request, $id)
     {
         
@@ -46,7 +45,6 @@ class BaseController extends Controller
         return $this->service->update($request, $id);
     }
 
-    
     public function destroy($id)
     {
         //Employee::destroy($id);

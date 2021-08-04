@@ -14,11 +14,14 @@ class EmployeeService extends BaseService{
         return Employee::all();
     }
 
+    public function store(Request $request)
+    {   
+        return Employee::create($request->all());
+    }
 
     public function show($id)
     {
         return Employee::find($id);
-        
     }
 
     public function update(Request $request, $id)
