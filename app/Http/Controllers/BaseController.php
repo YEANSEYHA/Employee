@@ -25,7 +25,7 @@ class BaseController extends Controller
     public function store(Request $request)
     {   
         $this->validate($request, [
-            'name' => 'required',
+            'name_kh' => 'required',
             'phone' => 'required',
         ]);
         //return Employee::create($request->all());

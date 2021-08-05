@@ -8,8 +8,17 @@ class Employee extends Model
 {
     
     protected $fillable = [
-        'name',
+        'name_kh',
+        'name_latin',
+        'email',
         'phone',
-        'role'
+        'birth_date',
+        'address',
+        'active',
+        'role',
+        'gender',
+        'department_id',
+        'related_user_id',
+        'associated_roles_id'
     ];
 }
