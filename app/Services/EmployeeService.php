@@ -11,7 +11,8 @@ class EmployeeService extends BaseService{
 
     public function index()
     {
-        return Employee::all();
+        //return Employee::all();
+        return Employee::paginate(20);
     }
 
     public function store(Request $request)
