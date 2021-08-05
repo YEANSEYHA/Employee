@@ -12,7 +12,15 @@ class EmployeeService extends BaseService{
     public function index()
     {
         //return Employee::all();
-        return Employee::paginate(20);
+        //return Employee::paginate(20);
+        $query = Employee::query();
+
+        $query->when(request()->filled('filter'),function($query){
+            [$criteria,$value] = explode(':',request('filter'));
+            return $query->where($criteria,$value); 
+        });
+
+        return $query->paginate(20);
     }
 
     public function store(Request $request)
