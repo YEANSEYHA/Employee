@@ -16,8 +16,12 @@ class EmployeeService extends BaseService{
         $query = Employee::query();
 
         $query->when(request()->filled('filter'),function($query){
-            [$criteria,$value] = explode(':',request('filter'));
-            return $query->where($criteria,$value); 
+            $filters = explode(',',request('filter'));
+            foreach($filters as $filter){
+                [$criteria, $value] = explode(':',$filter);
+                $query->where($criteria,$value);
+            }
+            return $query;
         });
 
         return $query->paginate(20);
