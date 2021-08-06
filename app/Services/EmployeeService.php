@@ -14,7 +14,6 @@ class EmployeeService extends BaseService{
         //return Employee::all();
         //return Employee::paginate(20);
         $query = Employee::query();
-
         $query->when(request()->filled('filter'),function($query){
             $filters = explode(',',request('filter'));
             foreach($filters as $filter){
@@ -28,8 +27,17 @@ class EmployeeService extends BaseService{
     }
 
     public function store(Request $request)
-    {   
-        return Employee::create($request->all());
+    {   // Check existing employees
+        $employees_namelatin = Employee::where('name_latin', '=', $request->input('name_latin'))->first();
+        $employees_namekh = Employee::where('name_kh', '=', $request->input('name_kh'))->first();
+        if ($employees_namelatin === null && $employees_namekh === null) {
+        // User does not exist
+            return Employee::create($request->all());
+        } else {
+        // User exits
+            return 'Employee already exists';
+        }
+        //return Employee::create($request->all());
     }
 
     public function show($id)
