@@ -26,7 +26,13 @@ class EmployeeService extends BaseService{
         if ($request->has('phone')){
             $employee->where('phone', $request->phone)->get();
         }
-        return $employee->paginate(5);
+        if($request->has('namelatin')){
+            $employee->where('name_latin', 'like','%'.request('namelatin').'%')->get();
+        }
+        if($request->has('namekh')){
+            $employee->where('name_kh', 'like','%'.request('namekh').'%')->get();
+        }
+        return $employee->paginate(20);
     }
 
     public function store(Request $request)
