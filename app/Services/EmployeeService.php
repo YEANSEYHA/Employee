@@ -2,6 +2,7 @@
 namespace App\Services;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use App\EmployeeFilters;
 
 class EmployeeService extends BaseService{
 
@@ -9,21 +10,23 @@ class EmployeeService extends BaseService{
         return Employee::create($attributes);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        //return Employee::all();
-        //return Employee::paginate(20);
-        $query = Employee::query();
-        $query->when(request()->filled('filter'),function($query){
-            $filters = explode(',',request('filter'));
-            foreach($filters as $filter){
-                [$criteria, $value] = explode(':',$filter);
-                $query->where($criteria,$value);
-            }
-            return $query;
-        });
 
-        return $query->paginate(20);
+        $employee = (new Employee)->newQuery();
+        if ($request->has('role')){
+            $employee->where('role', $request->role)->get();
+        }
+        if ($request->has('gender')){
+            $employee->where('gender', $request->gender)->get();
+        }
+        if ($request->has('name_latin')){
+            $employee->where('name_latin', $request->name_latin)->get();
+        }
+        if ($request->has('phone')){
+            $employee->where('phone', $request->phone)->get();
+        }
+        return $employee->paginate(5);
     }
 
     public function store(Request $request)

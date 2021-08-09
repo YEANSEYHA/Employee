@@ -24,11 +24,10 @@ class CreateEmployeesTable extends Migration
             $table->boolean('active');
             $table->string('role');
             $table->string('gender');
-            
-            $table->integer('department_id');
+            $table->integer('department_id')->nullable();
             //$table->foreign('department_id')->references('id')->on('department')->onDelete('cascade');
-            $table->integer('related_user_id');
-            $table->integer('associated_roles_id');
+            $table->integer('related_user_id')->nullable();
+            $table->integer('associated_roles_id')->nullable();
             $table->timestamps();
         });
     }

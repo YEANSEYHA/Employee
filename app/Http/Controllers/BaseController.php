@@ -8,7 +8,7 @@ use App\Services\EmployeeService;
 
 
 class BaseController extends Controller
-{   
+{
     public $service;
     protected $model;
 
@@ -16,14 +16,14 @@ class BaseController extends Controller
         $this->service = $employeeService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         //return Employee::all();
-        return $this->service->index();
+        return $this->service->index($request);
     }
 
     public function store(Request $request)
-    {   
+    {
         $this->validate($request, [
             'name_kh' => 'required',
             'phone' => 'required',
@@ -31,7 +31,7 @@ class BaseController extends Controller
         //return Employee::create($request->all());
         return $this->service->store($request);
     }
-    
+
     public function show($id)
     {
         //return Employee::find($id);
@@ -40,7 +40,7 @@ class BaseController extends Controller
 
     public function update(Request $request, $id)
     {
-        
+
         //return $employee;
         return $this->service->update($request, $id);
     }
