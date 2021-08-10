@@ -50,4 +50,9 @@ class BaseController extends Controller
         //Employee::destroy($id);
         $this->service->destroy($id);
     }
+
+    public function multipleCreate(Request $request){
+         Employee::insert($request->all());
+         return 'Create Successful';
+    }
 }
