@@ -32,21 +32,15 @@ class EmployeeService extends BaseService{
         if($request->has('namekh')){
             $employee->where('name_kh', 'like','%'.request('namekh').'%')->get();
         }
+        if($request->has('email')){
+            $employee->where('email', 'like','%'.request('email').'%')->get();
+        }
         return $employee->paginate(20);
     }
 
     public function store(Request $request)
-    {   // Check existing employees
-        $employees_namelatin = Employee::where('name_latin', '=', $request->input('name_latin'))->first();
-        $employees_namekh = Employee::where('name_kh', '=', $request->input('name_kh'))->first();
-        if ($employees_namelatin === null && $employees_namekh === null) {
-        // User does not exist
-            return Employee::create($request->all());
-        } else {
-        // User exits
-            return 'Employee already exists';
-        }
-        //return Employee::create($request->all());
+    {   
+        return Employee::create($request->all());
     }
 
     public function show($id)
@@ -65,5 +59,5 @@ class EmployeeService extends BaseService{
     {
         Employee::destroy($id);
     }
-    
+
 }

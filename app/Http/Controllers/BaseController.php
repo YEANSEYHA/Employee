@@ -26,7 +26,12 @@ class BaseController extends Controller
     {
         $this->validate($request, [
             'name_kh' => 'required',
+            'name_latin' => 'required',
+            'email' => 'required|email|unique:employees,email',
             'phone' => 'required',
+            'birth_date'=> 'required',
+            'address'=> 'required',
+            'gender' => 'required'
         ]);
         //return Employee::create($request->all());
         return $this->service->store($request);

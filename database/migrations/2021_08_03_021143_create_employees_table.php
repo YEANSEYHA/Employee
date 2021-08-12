@@ -17,11 +17,11 @@ class CreateEmployeesTable extends Migration
             $table->id();
             $table->string('name_kh');
             $table->string('name_latin');
-            $table->string('email');
-            $table->integer('phone');
+            $table->string('email')->unique();
+            $table->string('phone',10);
             $table->string('birth_date');
             $table->string('address');
-            $table->boolean('active');
+            $table->boolean('active')->default(0);
             $table->string('role');
             $table->string('gender');
             $table->integer('department_id')->nullable();
