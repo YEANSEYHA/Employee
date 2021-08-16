@@ -57,7 +57,28 @@ class BaseController extends Controller
     }
 
     public function multipleCreate(Request $request){
-         Employee::insert($request->all());
-         return 'Create Successful';
+         /* Employee::insert($request->all());
+         return 'Create Successful'; */
+
+         if($request->isMethod('post')){
+
+            /* $employeeData = $request->all(); */
+            //dd($request->all());
+            foreach($request->employees as $key => $value){
+                $employee = new Employee;
+                $employee->name_kh = $value['name_kh'];
+                $employee->name_latin = $value['name_latin'];
+                $employee->email = $value['email'];
+                $employee->phone = $value['phone'];
+                $employee->birth_date = $value['birth_date'];
+                $employee->address = $value['address'];
+                $employee->active = $value['active'];
+                $employee->role= $value['role'];
+                $employee->gender = $value['gender'];
+                $employee->save();
+            }
+            return 'Import Success';
+         }
+
     }
 }
