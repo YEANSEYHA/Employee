@@ -57,6 +57,12 @@ class BaseController extends Controller
     }
 
     public function multipleCreate(Request $request){
+        $valids = [];
+        $rules = [
+            'name_latin'=>'/^[a-Z]/i',
+            'email'=>'/^[^@]+@[^@]+\.[a-z]{2,6}/i',
+            'phone'=>'/^[0-9]/i',
+        ];
          /* Employee::insert($request->all());
          return 'Create Successful'; */
 
@@ -65,18 +71,35 @@ class BaseController extends Controller
             /* $employeeData = $request->all(); */
             //dd($request->all());
             foreach($request->employees as $key => $value){
-                $employee = new Employee;
-                $employee->name_kh = $value['name_kh'];
-                $employee->name_latin = $value['name_latin'];
-                $employee->email = $value['email'];
-                $employee->phone = $value['phone'];
-                $employee->birth_date = $value['birth_date'];
-                $employee->address = $value['address'];
-                $employee->active = $value['active'];
-                $employee->role= $value['role'];
-                $employee->gender = $value['gender'];
-                $employee->save();
+                // $this->validate($request,[
+                //     'email'=>'required|email|string'
+                // ]);
+                $skip = false;
+                foreach($rules as $key_rule => $rule){
+                    if(isset($rules[$key])){
+                        $check = preg_match($rules[$key],$value[$key]);
+                        if(!$check){
+                            $valids[$key]=$value;
+                            $skip = true;
+                        }
+                    }
+                }
+                if(!$skip){
+                    $employee = new Employee;
+                    $employee->name_kh = $value['name_kh'];
+                    $employee->name_latin = $value['name_latin'];
+                    $employee->email = $value['email'];
+                    $employee->phone = $value['phone'];
+                    $employee->birth_date = $value['birth_date'];
+                    $employee->address = $value['address'];
+                    $employee->active = $value['active'];
+                    $employee->role= $value['role'];
+                    $employee->gender = $value['gender'];
+                    $employee->save();
+                }
+                // $check_email = preg_match('/^[^@]+@[^@]+\.[a-z]{2,6}/i',$value['email']);
             }
+            return $valids;
             return 'Import Success';
          }
 
