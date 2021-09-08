@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Services\EmployeeService;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Routing\Redirector;
 
 
 class BaseController extends Controller
@@ -59,9 +61,11 @@ class BaseController extends Controller
     public function multipleCreate(Request $request){
         $valids = [];
         $rules = [
-            'name_latin'=>'/^[a-Z]/i',
+            //'name_latin'=>'/^[a-Z]/i',
             'email'=>'/^[^@]+@[^@]+\.[a-z]{2,6}/i',
-            'phone'=>'/^[0-9]/i',
+            //'email' => '/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix'
+
+            //'phone'=>'/^[0-9]/i',
         ];
          /* Employee::insert($request->all());
          return 'Create Successful'; */
@@ -77,7 +81,7 @@ class BaseController extends Controller
                 $skip = false;
                 foreach($rules as $key_rule => $rule){
                     if(isset($rules[$key])){
-                        $check = preg_match($rules[$key],$value[$key]);
+                        $check = preg_match($rules[$key_rule],$value[$key]);
                         if(!$check){
                             $valids[$key]=$value;
                             $skip = true;
@@ -97,11 +101,15 @@ class BaseController extends Controller
                     $employee->gender = $value['gender'];
                     $employee->save();
                 }
-                // $check_email = preg_match('/^[^@]+@[^@]+\.[a-z]{2,6}/i',$value['email']);
+                //$check_email = preg_match('/^[^@]+@[^@]+\.[a-z]{2,6}/i',$value['email']);
             }
             return $valids;
-            return 'Import Success';
+            //return 'Import Success';
          }
+
+    }
+
+    public function multipleCreate2(Request $request){
 
     }
 }

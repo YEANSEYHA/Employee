@@ -34,3 +34,5 @@ Route::put('/employees/{id}','EmployeeController@update');
 Route::delete('/employees/{id}','EmployeeController@destroy');
 
 Route::post('/employees/multiple','EmployeeController@multiplecreate');
+
+Route::post('/employees/multiple2','EmployeeController@multiplecreate2');
