@@ -22,7 +22,7 @@ class CreateEmployeesTable extends Migration
             $table->string('birth_date');
             $table->string('address');
             $table->boolean('active')->default(0);
-            $table->string('role');
+            $table->string('role')->nullable();
             $table->string('gender');
             $table->integer('department_id')->nullable();
             //$table->foreign('department_id')->references('id')->on('department')->onDelete('cascade');
