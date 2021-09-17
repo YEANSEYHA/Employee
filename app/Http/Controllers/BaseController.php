@@ -30,10 +30,10 @@ class BaseController extends Controller
             'name_kh' => 'required',
             'name_latin' => 'required',
             'email' => 'required|email|unique:employees,email',
-            'phone' => 'required',
+            'phone' => 'required|min:9|max:10',
             'birth_date'=> 'required',
-            'address'=> 'required',
-            'gender' => 'required'
+            'address'=> 'required|max:100',
+            'gender' => 'required|max:10'
         ]);
         //return Employee::create($request->all());
         return $this->service->store($request);
