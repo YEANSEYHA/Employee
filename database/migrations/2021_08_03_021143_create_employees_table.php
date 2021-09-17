@@ -18,12 +18,12 @@ class CreateEmployeesTable extends Migration
             $table->string('name_kh');
             $table->string('name_latin');
             $table->string('email')->unique();
-            $table->string('phone',10);
+            $table->string('phone',15);
             $table->string('birth_date');
             $table->string('address');
             $table->boolean('active')->default(0);
             $table->string('role')->nullable();
-            $table->string('gender');
+            $table->string('gender', 10);
             $table->integer('department_id')->nullable();
             //$table->foreign('department_id')->references('id')->on('department')->onDelete('cascade');
             $table->integer('related_user_id')->nullable();
